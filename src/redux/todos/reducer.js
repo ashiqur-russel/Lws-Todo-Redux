@@ -14,6 +14,7 @@ function nextTodoId(todos) {
 }
 
 const reducer = (state = initialState, action) => {
+  console.log(action);
   switch (action.type) {
     case ADDED:
       return [...state, { id: nextTodoId(state) }];
@@ -28,6 +29,7 @@ const reducer = (state = initialState, action) => {
           };
         }
       });
+
     case COLORSELECTED:
       const { todoId, color } = action.payload;
       return state.map((todo) => {
@@ -35,11 +37,10 @@ const reducer = (state = initialState, action) => {
           return todo;
         }
         return {
-          ...state,
+          ...todo,
           color: color,
         };
       });
-
     case DELETED:
       return state.filter((todo) => todo.id !== action.payload);
 

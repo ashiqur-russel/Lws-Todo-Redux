@@ -30,7 +30,6 @@ export const colorSelected = (todoId, color) => {
     },
   };
 };
-
 export const deleted = (todoId) => {
   return {
     type: DELETED,

@@ -8,6 +8,6 @@ export const initialState = [
     id: 2,
     text: "Learn JS",
     completed: false,
-    color: "yellow",
+    color: "red",
   },
 ];
