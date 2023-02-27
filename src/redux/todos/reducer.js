@@ -17,7 +17,10 @@ const reducer = (state = initialState, action) => {
   console.log(action);
   switch (action.type) {
     case ADDED:
-      return [...state, { id: nextTodoId(state) }];
+      return [
+        ...state,
+        { id: nextTodoId(state), text: action.payload, completed: false },
+      ];
     case TOGGLED:
       return state.map((todo) => {
         if (todo.id !== action.payload) {
