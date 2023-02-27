@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { statusChanged } from "../redux/filters/actions";
+import { colorChanged, statusChanged } from "../redux/filters/actions";
 
 const taskCounter = (task_remaining) => {
   switch (task_remaining) {
@@ -19,12 +19,19 @@ const Footer = () => {
   const todos = useSelector((state) => state.todos);
   const todosLeft = todos.filter((todo) => !todo.completed);
   const filters = useSelector((state) => state.filters);
-  const dispatch = useDispatch();
   const { status, colors } = filters;
-  console.log(filters);
-
+  console.log(colors);
+  const dispatch = useDispatch();
   const handleStatusChange = (status) => {
     dispatch(statusChanged(status));
+  };
+
+  const handleColorChange = (color) => {
+    if (colors.includes(color)) {
+      dispatch(colorChanged(color, "removed"));
+    } else {
+      dispatch(colorChanged(color, "added"));
+    }
   };
 
   return (
@@ -59,9 +66,24 @@ const Footer = () => {
         </li>
         <li></li>
         <li></li>
-        <li className="h-3 w-3 border-2 border-green-500 md:hover:bg-green-500 rounded-full cursor-pointer bg-green-500"></li>
-        <li className="h-3 w-3 border-2 border-red-500 md:hover:bg-red-500 rounded-full cursor-pointer"></li>
-        <li className="h-3 w-3 border-2 border-yellow-500 md:hover:bg-yellow-500 rounded-full cursor-pointer"></li>
+        <li
+          className={`h-3 w-3 border-2 border-green-500 md:hover:bg-green-500 rounded-full cursor-pointer ${
+            colors.includes("green") && "bg-green-500"
+          } `}
+          onClick={() => handleColorChange("green")}
+        ></li>
+        <li
+          className={`h-3 w-3 border-2 border-red-500 md:hover:bg-red-500 rounded-full cursor-pointer ${
+            colors.includes("red") && "bg-red-500"
+          }  `}
+          onClick={() => handleColorChange("red")}
+        ></li>
+        <li
+          className={`h-3 w-3 border-2 border-yellow-500 md:hover:bg-yellow-500 rounded-full cursor-pointer ${
+            colors.includes("yellow") && "bg-yellow-500"
+          }  `}
+          onClick={() => handleColorChange("yellow")}
+        ></li>
       </ul>
     </div>
   );
