@@ -12,11 +12,17 @@ const Header = () => {
   const todoHandler = (e) => {
     e.preventDefault();
 
+    if (todo === "") {
+      return;
+    }
     dispatch(added(todo));
+
+    setTodo("");
   };
 
   const handleChange = (e) => {
     const item = e.target.value;
+
     setTodo(item);
   };
   return (
@@ -31,6 +37,7 @@ const Header = () => {
           placeholder="Type your todo"
           className="w-full text-lg px-4 py-1 border-none outline-none bg-gray-100 text-gray-500"
           name="add"
+          value={todo}
           onChange={handleChange}
         />
         <button
